@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "cuentas")
 public class Cuenta {
     @Id
+    @Column(unique = true, nullable = false)
     private Long numero;
     @Column(nullable = false)
     private String tipo;
