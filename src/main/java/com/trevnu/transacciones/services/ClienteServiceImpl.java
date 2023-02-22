@@ -31,7 +31,8 @@ public class ClienteServiceImpl implements ClienteService{
     public List<ClienteDto> getAll() {
         List<Cliente> list = new ArrayList<>();
         clienteRepository.findAll().forEach(list::add);
-        return list.stream().map(x -> Mappers.getMapper(ClienteMapper.class).toDto(x)).toList();
+        ClienteMapper mapper = Mappers.getMapper(ClienteMapper.class);
+        return list.stream().map(mapper::toDto).toList();
     }
 
     @Override

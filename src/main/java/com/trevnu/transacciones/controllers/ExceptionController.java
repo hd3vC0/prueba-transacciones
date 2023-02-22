@@ -4,6 +4,7 @@ import com.trevnu.transacciones.dto.DefaultResponseDto;
 import com.trevnu.transacciones.exceptions.BalanceNotAvailableException;
 import com.trevnu.transacciones.exceptions.ClienteNotFoundException;
 import com.trevnu.transacciones.exceptions.CuentaNotFoundException;
+import com.trevnu.transacciones.exceptions.MovimientoNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,7 +32,8 @@ public class ExceptionController {
 
     @ExceptionHandler({
             ClienteNotFoundException.class,
-            CuentaNotFoundException.class
+            CuentaNotFoundException.class,
+            MovimientoNotFoundException.class
     })
     public ResponseEntity<DefaultResponseDto> hanlderClienteNotFound(RuntimeException e){
         return ResponseEntity.status(404).body(

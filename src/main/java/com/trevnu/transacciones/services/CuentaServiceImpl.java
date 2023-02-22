@@ -38,7 +38,8 @@ public class CuentaServiceImpl implements CuentaService{
     public List<CuentaDto> getAll() {
         List<Cuenta> list = new ArrayList<>();
         cuentaRepository.findAll().forEach(list::add);
-        return list.stream().map(x -> Mappers.getMapper(CuentaMapper.class).toDto(x)).toList();
+        CuentaMapper mapper = Mappers.getMapper(CuentaMapper.class);
+        return list.stream().map(mapper::toDto).toList();
     }
 
     @Override

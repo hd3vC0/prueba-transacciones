@@ -5,13 +5,19 @@ import com.trevnu.transacciones.dto.MovimientoDto;
 import com.trevnu.transacciones.entity.Cuenta;
 import com.trevnu.transacciones.entity.Movimiento;
 import com.trevnu.transacciones.exceptions.CuentaNotFoundException;
+import com.trevnu.transacciones.exceptions.MovimientoNotFoundException;
 import com.trevnu.transacciones.mappers.MovimientoMapper;
 import com.trevnu.transacciones.repositories.CuentaRepository;
 import com.trevnu.transacciones.repositories.MovimientoRespository;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -43,21 +49,34 @@ public class MovimientoServiceImpl implements MovimientoService{
 
     @Override
     public List<MovimientoDto> getAll() {
-        return null;
+        List<Movimiento> list = new ArrayList<>();
+        movimientoRespository.findAll().forEach(list::add);
+        MovimientoMapper mapper = Mappers.getMapper(MovimientoMapper.class);
+        return list.stream().map(mapper::toDto).toList();
     }
 
     @Override
     public void update(Integer id, MovimientoDto dto) {
-
+        Movimiento movimiento = movimientoRespository.findById(id.longValue()).orElseThrow(MovimientoNotFoundException::new);
+        BeanWrapper wrapper = new BeanWrapperImpl(dto);
+        List<String> props = Arrays.stream(wrapper.getPropertyDescriptors())
+                .filter(x -> wrapper.getPropertyValue(x.getName()) == null)
+                .map(x -> x.getName()).toList();
+        BeanUtils.copyProperties(dto, movimiento, props.toArray(new String[props.size()]));
+        movimientoRespository.save(movimiento);
     }
 
     @Override
     public void delete(Integer id) {
-
+        Movimiento movimiento = movimientoRespository.findById(id.longValue()).orElseThrow(MovimientoNotFoundException::new);
+        movimientoRespository.delete(movimiento);
     }
 
     @Override
     public MovimientoDto get(Integer id) {
-        return null;
+        return Mappers.getMapper(MovimientoMapper.class)
+                .toDto(movimientoRespository.findById(id.longValue())
+                        .orElseThrow(MovimientoNotFoundException::new));
+
     }
 }
