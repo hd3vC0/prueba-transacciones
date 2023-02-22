@@ -23,7 +23,7 @@ public class Movimiento {
     private Long valor;
     @Column(nullable = false)
     private Long saldo;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(nullable = false)
     private Cuenta cuenta;
 }

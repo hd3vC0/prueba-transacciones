@@ -17,7 +17,7 @@ public class Cuenta {
     private Long saldoInicial;
     @Column(nullable = false, columnDefinition = "bit(1) default 1")
     private Boolean estado;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(nullable = false)
     private Cliente cliente;
 

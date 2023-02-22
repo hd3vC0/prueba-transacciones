@@ -10,10 +10,13 @@ import com.trevnu.transacciones.repositories.ClienteRepository;
 import com.trevnu.transacciones.repositories.CuentaRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -41,7 +44,11 @@ public class CuentaServiceImpl implements CuentaService{
     @Override
     public void update(Integer id, CuentaDto dto) {
         Cuenta cuenta = cuentaRepository.findById(id).orElseThrow(CuentaNotFoundException::new);
-        BeanUtils.copyProperties(dto, cuenta);
+        BeanWrapper wrapper = new BeanWrapperImpl(dto);
+        List<String> props = Arrays.stream(wrapper.getPropertyDescriptors())
+                .filter(x -> wrapper.getPropertyValue(x.getName()) == null)
+                .map(x -> x.getName()).toList();
+        BeanUtils.copyProperties(dto, cuenta, props.toArray(new String[props.size()]));
         cuentaRepository.save(cuenta);
 
     }
@@ -49,7 +56,7 @@ public class CuentaServiceImpl implements CuentaService{
     @Override
     public void delete(Integer id) {
         Cuenta cuenta = cuentaRepository.findById(id).orElseThrow(CuentaNotFoundException::new);
-        cuentaRepository.delete(cuenta);
+        cuentaRepository.deleteById(id);
 
     }
 
