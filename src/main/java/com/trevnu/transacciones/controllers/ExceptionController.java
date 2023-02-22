@@ -1,6 +1,7 @@
 package com.trevnu.transacciones.controllers;
 
 import com.trevnu.transacciones.dto.DefaultResponseDto;
+import com.trevnu.transacciones.exceptions.BalanceNotAvailableException;
 import com.trevnu.transacciones.exceptions.ClienteNotFoundException;
 import com.trevnu.transacciones.exceptions.CuentaNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,24 @@ public class ExceptionController {
         );
     }
 
-    @ExceptionHandler({ClienteNotFoundException.class, CuentaNotFoundException.class})
+    @ExceptionHandler({
+            ClienteNotFoundException.class,
+            CuentaNotFoundException.class
+    })
     public ResponseEntity<DefaultResponseDto> hanlderClienteNotFound(RuntimeException e){
         return ResponseEntity.status(404).body(
                 DefaultResponseDto.builder()
                         .statusCode(404)
+                        .message(e.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(BalanceNotAvailableException.class)
+    public ResponseEntity<DefaultResponseDto> hanlderBalanceNotAvailable(BalanceNotAvailableException e){
+        return ResponseEntity.internalServerError().body(
+                DefaultResponseDto.builder()
+                        .statusCode(500)
                         .message(e.getMessage())
                         .build()
         );
