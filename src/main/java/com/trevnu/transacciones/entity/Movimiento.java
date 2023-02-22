@@ -19,6 +19,7 @@ public class Movimiento {
     private Long id;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
+    @Temporal(TemporalType.DATE)
     private Date fecha;
     @Column(nullable = false)
     private String tipoMovimiento;
