@@ -9,6 +9,7 @@ import com.trevnu.transacciones.exceptions.MovimientoNotFoundException;
 import com.trevnu.transacciones.mappers.MovimientoMapper;
 import com.trevnu.transacciones.repositories.CuentaRepository;
 import com.trevnu.transacciones.repositories.MovimientoRespository;
+import jakarta.transaction.Transactional;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -28,6 +29,7 @@ public class MovimientoServiceImpl implements MovimientoService{
     @Autowired
     private CuentaRepository cuentaRepository;
     @Override
+    @Transactional
     public void create(MovimientoDto dto) {
         Cuenta cuenta = cuentaRepository.findById(dto.getNumeroCuenta().intValue())
                 .orElseThrow(CuentaNotFoundException::new);

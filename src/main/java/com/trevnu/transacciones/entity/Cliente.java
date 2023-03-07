@@ -5,6 +5,7 @@ import lombok.*;
 
 @Setter
 @Getter
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "clientes")
 public class Cliente extends Persona {
