@@ -45,5 +45,5 @@ jobs:
           -Dsonar.projectKey=hd3vC0_prueba-transacciones
           -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
         # Set the sonar.projectBaseDir analysis property
-        projectBaseDir: prueba-transacciones
+        #projectBaseDir: prueba-transacciones
     
