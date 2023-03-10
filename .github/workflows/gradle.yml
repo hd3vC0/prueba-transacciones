@@ -7,6 +7,8 @@
 
 name: Java CI with Gradle
 
+env:
+  SONAR_TOKEN: ${{ secrets.SONARCLOUD_SECRET }}
 on:
   push:
     branches: [ "master" ]
