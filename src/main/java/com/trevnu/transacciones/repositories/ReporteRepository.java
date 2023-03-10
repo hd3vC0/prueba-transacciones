@@ -1,7 +1,6 @@
 package com.trevnu.transacciones.repositories;
 
 import com.trevnu.transacciones.entity.Movimiento;
-import jakarta.persistence.NamedQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

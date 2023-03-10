@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-public class ClienteServiceImplTest {
+class ClienteServiceImplTest {
 
     @Mock
     private ClienteRepository clienteRepository;
@@ -26,7 +26,7 @@ public class ClienteServiceImplTest {
     private ClienteServiceImpl clienteService;
 
     @Test
-    public void get_cliente_existe_ok(){
+    void get_cliente_existe_ok(){
         when(clienteRepository.findById(1)).thenReturn(Optional.of(Cliente.builder()
                         .id(1L)
                         .contrasena("helloworld")
@@ -40,7 +40,7 @@ public class ClienteServiceImplTest {
     }
 
     @Test
-    public void get_cliente_no_existe(){
+    void get_cliente_no_existe(){
         when(clienteRepository.findById(2)).thenReturn(Optional.empty());
 
         assertThrows(ClienteNotFoundException.class,() -> {

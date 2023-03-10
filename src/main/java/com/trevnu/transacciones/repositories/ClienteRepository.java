@@ -1,7 +1,6 @@
 package com.trevnu.transacciones.repositories;
 
 import com.trevnu.transacciones.entity.Cliente;
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

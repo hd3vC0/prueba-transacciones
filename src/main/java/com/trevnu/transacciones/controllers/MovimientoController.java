@@ -1,6 +1,5 @@
 package com.trevnu.transacciones.controllers;
 
-import com.trevnu.transacciones.dto.CuentaDto;
 import com.trevnu.transacciones.dto.DefaultResponseDto;
 import com.trevnu.transacciones.dto.MovimientoDto;
 import com.trevnu.transacciones.services.MovimientoService;

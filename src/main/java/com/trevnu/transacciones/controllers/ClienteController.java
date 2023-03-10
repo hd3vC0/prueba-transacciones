@@ -42,19 +42,19 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody ClienteDto clienteDto){
+    public ResponseEntity<DefaultResponseDto> create(@Valid @RequestBody ClienteDto clienteDto){
         clienteService.create(clienteDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity<DefaultResponseDto> delete(@PathVariable Integer id){
         clienteService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Integer id, @RequestBody ClienteDto cliente){
+    public ResponseEntity<DefaultResponseDto> update(@PathVariable Integer id, @RequestBody ClienteDto cliente){
         clienteService.update(id, cliente);
         return ResponseEntity.ok().build();
     }

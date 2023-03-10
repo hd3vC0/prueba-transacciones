@@ -2,7 +2,6 @@ package com.trevnu.transacciones.services;
 
 import com.trevnu.transacciones.dto.ReporteMovimientoDto;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

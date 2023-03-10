@@ -57,7 +57,7 @@ public class CuentaServiceImpl implements CuentaService{
     @Override
     public void delete(Integer id) {
         Cuenta cuenta = cuentaRepository.findById(id).orElseThrow(CuentaNotFoundException::new);
-        cuentaRepository.deleteById(id);
+        cuentaRepository.delete(cuenta);
 
     }
 
